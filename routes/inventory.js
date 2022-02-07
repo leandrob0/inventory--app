@@ -41,7 +41,7 @@ router.post("/item/:id/update");
 router.get("/categories", category_controller.category_list);
 
 // GET specific category
-router.get("/category/:id");
+router.get("/category/:id", category_controller.category_detail);
 
 // GET create new category form
 router.get("/category/create");

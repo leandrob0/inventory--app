@@ -9,3 +9,11 @@ exports.category_list = (req, res, next) => {
       res.render("category_list", { title: "Categories", categories: categories });
     });
 };
+
+exports.category_detail = (req, res, next) => {
+  Category.findById(req.params.id)
+    .exec((err, category) => {
+      if(err) return next(err);
+      res.render("category_detail", {title: "Category detail", category: category})
+    })
+}

@@ -18,12 +18,15 @@
     <main class="not-homepage-main">
       <h1><%= title %></h1>
       <div class="cat-item-container">
-        <% categories.forEach(category => { %>
-          <div class="cat-item">
-            <img src=<%= category.image %> alt="category image" class="cat-item-image">
-            <a href=<%= category.url %> ><%= category.name %> </a>
-          </div>
-        <% }); %>
+        <div class="cat-item">
+          <img src=<%= category.image %> alt="Item image" class="cat-item-image">
+          <h2><%= category.name %> </h2>
+          <p><%= category.description %> </p>
+        </div>
+      </div>
+      <div class="buttons-del-updt-container">
+        <a href="#" class="buttons-del-updt">Delete category</a>
+        <a href="#" class="buttons-del-updt">Update category</a>
       </div>
     </main>
   </body>

@@ -18,7 +18,15 @@
     <main class="not-homepage-main">
       <h1><%= title %></h1>
       <div class="cat-item-container">
-        <h2><%= item.name %> </h2>
+        <div class="cat-item">
+          <img src=<%= item.image %> alt="Item image" class="cat-item-image">
+          <h2><%= item.name %> </h2>
+          <p><%= item.description %> </p>
+        </div>
+      </div>
+      <div class="buttons-del-updt-container">
+        <a href="#" class="buttons-del-updt">Delete item</a>
+        <a href="#" class="buttons-del-updt">Update item</a>
       </div>
     </main>
   </body>

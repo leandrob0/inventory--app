@@ -7,11 +7,6 @@ body {
   height: 100%;
 }
 
-a {
-  color: white;
-  text-decoration: none;
-}
-
 nav {
   position: fixed;
   top: 0;
@@ -29,6 +24,13 @@ nav {
 .links a {
   padding-left: 20px;
   padding-right: 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.logo a {
+  color: white;
+  text-decoration: none;
 }
 
 main {
@@ -84,6 +86,24 @@ main {
   padding: 5px;
 }
 
+.buttons-del-updt-container {
+  display:flex;
+  justify-content: center;
+  gap: 30px;
+
+  margin-top: 60px;
+}
+
+.buttons-del-updt {
+  padding: 5px;
+
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+
+  border-radius: 5px;
+}
+
 /*
 
 ########################################################
@@ -127,6 +147,7 @@ main {
 .cat-item a {
   color: black;
   text-decoration: none;
+  font-weight: bold;
 }
 
 /*
