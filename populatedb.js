@@ -80,13 +80,18 @@ function createCategories(cb) {
   async.series(
     [
       function (callback) {
-        categoryCreate("Sweets", "Sweet candies", false, callback);
+        categoryCreate(
+          "Sweets",
+          "Sweet candies",
+          "../public/images/sweets",
+          callback
+        );
       },
       function (callback) {
         categoryCreate(
           "Bottled drinks",
           "All types of drinks in a bottle",
-          false,
+          "../public/images/bottles",
           callback
         );
       },
@@ -94,7 +99,7 @@ function createCategories(cb) {
         categoryCreate(
           "Canned drinks",
           "All types of drinks in a can",
-          false,
+          "../public/images/cans",
           callback
         );
       },
@@ -110,7 +115,7 @@ function createItems(cb) {
       function (callback) {
         itemCreate(
           "Coca cola",
-          false,
+          "../public/images/coca-bottle",
           "Bottled Coca Cola",
           [categories[1]],
           6,
@@ -121,7 +126,7 @@ function createItems(cb) {
       function (callback) {
         itemCreate(
           "Flynn paff",
-          false,
+          "../public/images/flyn-paff",
           "Small sweet",
           [categories[0]],
           0.5,
@@ -132,7 +137,7 @@ function createItems(cb) {
       function (callback) {
         itemCreate(
           "Coca cola",
-          false,
+          "../public/images/coca-can",
           "Canned Coca Cola",
           [categories[2]],
           3,
@@ -143,7 +148,7 @@ function createItems(cb) {
       function (callback) {
         itemCreate(
           "Mountain dew",
-          false,
+          "../public/images/mtdew",
           "Sweet beverage in a can",
           [categories[0], categories[2]],
           2.5,

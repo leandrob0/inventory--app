@@ -5,11 +5,10 @@ html {
 body {
   margin: 0;
   height: 100%;
-  color:  black;
 }
 
 a {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
@@ -38,7 +37,11 @@ main {
 
 /*
 
+########################################################
+
   INDEX STYLIING
+
+########################################################
 
 */
 
@@ -79,6 +82,47 @@ main {
 
 /*
 
+########################################################
 
+  ITEMS STYLING
+
+########################################################
+
+*/
+
+.not-homepage-nav {
+  background-color: #333;
+  color: white;
+}
+
+.not-homepage-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 60px;
+}
+
+.cat-img-container {
+  display: flex;
+  justify-content: center;
+}
+
+/*
+
+########################################################
+
+  CATEGORY STYLING
+
+########################################################
+
+*/
+
+/*
+
+########################################################
+
+  ACCOUNT STYLIING
+
+########################################################
 
 */
