@@ -17,11 +17,14 @@
     </nav>
     <main class="not-homepage-main">
       <h1><%= title %></h1>
-      <ul>
+      <div class="cat-item-container">
         <% categories.forEach(category => { %>
-        <li><%= category.name %></li>
+          <div class="cat-item">
+            <img src=<%= category.image %> alt="category image" class="cat-item-image">
+            <h2><%= category.name %> </h2>
+          </div>
         <% }); %>
-      </ul>
+      </div>
     </main>
   </body>
 </html>

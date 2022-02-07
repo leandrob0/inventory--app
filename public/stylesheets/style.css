@@ -62,22 +62,26 @@ main {
 }
 
 .index-main {
-  margin-top: 100px;
+  padding-top: 100px;
 
   display: flex;
   align-items: center;
   flex-direction: column;
-
-  backdrop-filter: blur(3px);
 }
 
 .index-main h1 {
   font-size: 2.2em;
   text-decoration: underline;
+  background-color: black;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .index-main p {
   font-size: 1.2em;
+  background-color: black;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 /*
@@ -102,9 +106,22 @@ main {
   padding-top: 60px;
 }
 
-.cat-img-container {
+.cat-item-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 3em;
+}
+
+.cat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cat-item-image {
+  width: 200px;
+  height: 200px;
 }
 
 /*
