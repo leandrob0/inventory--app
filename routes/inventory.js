@@ -14,25 +14,25 @@ router.get("/", item_controller.index);
 router.get("/items", item_controller.item_list);
 
 // GET specific item
-router.get("item/:id");
+router.get("/item/:id", item_controller.item_detail);
 
 // GET create new item form
-router.get("item/create");
+router.get("/item/create");
 
 // POST create new item form
-router.post("item/create");
+router.post("/item/create");
 
 // GET delete item
-router.get("item/:id/delete");
+router.get("/item/:id/delete");
 
 // POST delete item
-router.post("item/:id/delete");
+router.post("/item/:id/delete");
 
 // GET update item
-router.get("item/:id/update");
+router.get("/item/:id/update");
 
 // POST update item
-router.post("item/:id/update");
+router.post("/item/:id/update");
 
 //****************************************************
 // CATEGORIES ROUTES
@@ -41,25 +41,25 @@ router.post("item/:id/update");
 router.get("/categories", category_controller.category_list);
 
 // GET specific category
-router.get("category/:id");
+router.get("/category/:id");
 
 // GET create new category form
-router.get("category/create");
+router.get("/category/create");
 
 // POST create new category form
-router.post("category/create");
+router.post("/category/create");
 
 // GET delete category
-router.get("category/:id/delete");
+router.get("/category/:id/delete");
 
 // POST create new category form
-router.post("category/create");
+router.post("/category/create");
 
 // GET update category
-router.get("category/:id/update");
+router.get("/category/:id/update");
 
 // POST create new category form
-router.post("category/create");
+router.post("/category/create");
 
 //****************************************************
 // ACCOUNT ROUTES

@@ -15,3 +15,11 @@ exports.item_list = (req, res, next) => {
       res.render("item_list", { title: "Items", items: items });
     });
 };
+
+exports.item_detail = (req, res, next) => {
+  Item.findById(req.params.id)
+    .exec((err, item) => {
+      if(err) return next(err);
+      res.render("item_detail", {title: "Item detail", item: item})
+    })
+}

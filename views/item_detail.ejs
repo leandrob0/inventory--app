@@ -18,12 +18,7 @@
     <main class="not-homepage-main">
       <h1><%= title %></h1>
       <div class="cat-item-container">
-        <% items.forEach(item => { %>
-          <div class="cat-item">
-            <img src=<%= item.image %> alt="item image" class="cat-item-image">
-            <a href=<%= item.url %> ><%= item.name %> </a>
-          </div>
-        <% }); %>
+        <h2><%= item.name %> </h2>
       </div>
     </main>
   </body>
