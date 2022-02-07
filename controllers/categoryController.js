@@ -6,6 +6,6 @@ exports.category_list = (req, res, next) => {
     .sort([["name", "ascending"]])
     .exec((err, categories) => {
       if (err) return next(err);
-      res.render("category_list", { title: "Items", categories: categories });
+      res.render("category_list", { title: "Categories", categories: categories });
     });
 };
