@@ -83,7 +83,7 @@ function createCategories(cb) {
         categoryCreate(
           "Sweets",
           "Sweet candies",
-          "public/images/sweets.png",
+          "http://localhost:3000/images/sweets.png",
           callback
         );
       },
@@ -91,7 +91,7 @@ function createCategories(cb) {
         categoryCreate(
           "Bottled drinks",
           "All types of drinks in a bottle",
-          "public/images/bottles.jpg",
+          "http://localhost:3000/images/bottles.jpg",
           callback
         );
       },
@@ -99,7 +99,7 @@ function createCategories(cb) {
         categoryCreate(
           "Canned drinks",
           "All types of drinks in a can",
-          "public/images/cans.jpg",
+          "http://localhost:3000/images/cans.jpg",
           callback
         );
       },
@@ -115,7 +115,7 @@ function createItems(cb) {
       function (callback) {
         itemCreate(
           "Coca cola",
-          "public/images/coca-bottle.png",
+          "http://localhost:3000/images/coca-bottle.png",
           "Bottled Coca Cola",
           [categories[1]],
           6,
@@ -126,7 +126,7 @@ function createItems(cb) {
       function (callback) {
         itemCreate(
           "Flynn paff",
-          "public/images/flyn-paff.png",
+          "http://localhost:3000/images/flyn-paff.png",
           "Small sweet",
           [categories[0]],
           0.5,
@@ -137,7 +137,7 @@ function createItems(cb) {
       function (callback) {
         itemCreate(
           "Coca cola",
-          "public/images/coca-can.png",
+          "http://localhost:3000/images/coca-can.png",
           "Canned Coca Cola",
           [categories[2]],
           3,
@@ -148,7 +148,7 @@ function createItems(cb) {
       function (callback) {
         itemCreate(
           "Mountain dew",
-          "public/images/mtdew.png",
+          "http://localhost:3000/images/mtdew.png",
           "Sweet beverage in a can",
           [categories[0], categories[2]],
           2.5,

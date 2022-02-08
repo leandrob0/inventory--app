@@ -18,6 +18,10 @@
     <main class="not-homepage-main">
       <h1><%= title %></h1>
       <div class="cat-item-container">
+        <div class="cat-item">
+          <div class="create-new"><a href="/inventory/item/create">+</a></div>
+          <a href="/inventory/item/create">Create new item</a>
+        </div>
         <% items.forEach(item => { %>
           <div class="cat-item">
             <img src=<%= item.image %> alt="item image" class="cat-item-image">

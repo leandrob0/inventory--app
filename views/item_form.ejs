@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <nav class="not-homepage-nav">
+      <div class="logo">
+        <a href="/">logo</a>
+      </div>
+      <div class="links">
+        <a href="/inventory/items">Items</a>
+        <a href="/inventory/categories">Categories</a>
+        <a href="/inventory/account">Account</a>
+      </div>
+    </nav>
+    <main class="not-homepage-main">
+      <h1><%= title %></h1>
+      <form method="POST" action=''>
+        <fieldset>
+            <label for="name">Name</label>
+            <input 
+                id="name" 
+                name="name" 
+                type="text" 
+                placeholder="Item name" 
+                required="true" 
+                value=<%= (item === undefined) ? "" : item.name %> 
+            >
+            <label for="description">Description</label>
+            <input 
+                id="description" 
+                name="description" 
+                type="text"
+                placeholder="Item short description" 
+                required="true" 
+                value=<%= (item === undefined) ? "" : item.description %> 
+            >
+        </fieldset>
+        <fieldset>
+            <label for="category">Category</label>
+            <select
+            id="category"
+            name="category"
+            type="select"
+            placeholder="Select category"
+            required="true"
+            >
+            <% categories.forEach(category => { %>
+                <% if(item) { %>
+                    <option value=<%= category._id %> selected=<%= category.selected %> ><%= category.name %> </option>
+                <% }else { %> 
+                    <option value=<%= category._id %> ><%= category.name %> </option>
+                <% } %> 
+            <% }); %>
+            </select>
+            <label for="price">Price</label>
+            <input type="number" id="price" name="price" required="true" placeholder="Item price" value=<%= (item === undefined) ? "" : item.price %> >
+        </fieldset>
+        <fieldset>
+            <label for="image">Image</label>
+            <input 
+                id="image" 
+                name="image" 
+                type="file" 
+            >
+            <label for="in-stock">Stock</label>
+            <input 
+                id="in-stock"
+                name="in-stock"
+                type="number"
+                placeholder="Amount on this item in stock" 
+                required="true" 
+                value=<%= (item === undefined) ? "" : item.number_in_stock %> 
+            >
+        </fieldset>
+      </form>
+    </main>
+  </body>
+</html>

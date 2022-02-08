@@ -13,11 +13,8 @@ router.get("/", item_controller.index);
 // GET list of items
 router.get("/items", item_controller.item_list);
 
-// GET specific item
-router.get("/item/:id", item_controller.item_detail);
-
 // GET create new item form
-router.get("/item/create");
+router.get("/item/create", item_controller.item_create_get);
 
 // POST create new item form
 router.post("/item/create");
@@ -34,14 +31,14 @@ router.get("/item/:id/update");
 // POST update item
 router.post("/item/:id/update");
 
+// GET specific item
+router.get("/item/:id", item_controller.item_detail);
+
 //****************************************************
 // CATEGORIES ROUTES
 
 // GET list of categories
 router.get("/categories", category_controller.category_list);
-
-// GET specific category
-router.get("/category/:id", category_controller.category_detail);
 
 // GET create new category form
 router.get("/category/create");
@@ -53,13 +50,16 @@ router.post("/category/create");
 router.get("/category/:id/delete");
 
 // POST create new category form
-router.post("/category/create");
+router.post("/category/:id/delete");
 
 // GET update category
 router.get("/category/:id/update");
 
 // POST create new category form
-router.post("/category/create");
+router.post("/category/:id/update");
+
+// GET specific category
+router.get("/category/:id", category_controller.category_detail);
 
 //****************************************************
 // ACCOUNT ROUTES
