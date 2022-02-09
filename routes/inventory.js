@@ -17,7 +17,7 @@ router.get("/items", item_controller.item_list);
 router.get("/item/create", item_controller.item_create_get);
 
 // POST create new item form
-router.post("/item/create");
+router.post("/item/create", item_controller.item_create_post);
 
 // GET delete item
 router.get("/item/:id/delete");
