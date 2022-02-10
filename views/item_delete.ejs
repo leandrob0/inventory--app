@@ -24,10 +24,11 @@
           <p><%= item.description %> </p>
         </div>
       </div>
-      <div class="buttons-del-updt-container">
-        <a href="<%= item.url %>/delete" class="buttons-del-updt">Delete item</a>
-        <a href="<%= item.url %>/update" class="buttons-del-updt">Update item</a>
-      </div>
+      <h3>Are you sure you want to delete this item?</h3>
+      <form method="POST" action="">
+          <input type="hidden" value=<%= item._id %> id=itemid name="itemid" required="true" >
+          <button type="submit">Delete</button>
+      </form>
     </main>
   </body>
 </html>

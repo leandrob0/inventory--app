@@ -114,3 +114,31 @@ exports.item_create_post = [
     }
   },
 ];
+
+exports.item_delete_get = (req, res, next) => {
+  // Gets the item to display its values for confirming the delete operation.
+  Item.findById(req.params.id)
+    .exec((err, item) => {
+      if(err) return next(err);
+      res.render("item_delete", {title: "Delete item", item: item});
+    })
+}
+
+exports.item_delete_post = (req, res, next) => {
+  Item.findById(req.params.id)
+    .exec((err, item) => {
+      if(err) return next(err);
+      // If the item is not in the db.
+      if(item === null) {
+        let error = new Error("Item not found");
+        error.status = 404;
+        return next(error);
+      }
+
+      // Removes the item and redirects to the items list.
+      Item.findByIdAndRemove(req.body.itemid, function deleteItem(err) {
+        if(err) return next(err);
+        res.redirect("/inventory/items");
+      })
+    })
+}

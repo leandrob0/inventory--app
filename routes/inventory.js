@@ -20,10 +20,10 @@ router.get("/item/create", item_controller.item_create_get);
 router.post("/item/create", item_controller.item_create_post);
 
 // GET delete item
-router.get("/item/:id/delete");
+router.get("/item/:id/delete", item_controller.item_delete_get);
 
 // POST delete item
-router.post("/item/:id/delete");
+router.post("/item/:id/delete", item_controller.item_delete_post);
 
 // GET update item
 router.get("/item/:id/update");

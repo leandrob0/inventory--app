@@ -209,7 +209,7 @@ form fieldset:nth-child(2n+1) input {
   width: 75%;
 }
 
-#submit_button {
+button {
   margin: 20px;
   padding: 20px;
 
