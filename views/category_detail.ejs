@@ -28,8 +28,8 @@
         <a href="<%= category.url %>/delete" class="buttons-del-updt">Delete category</a>
         <a href="<%= category.url %>/update" class="buttons-del-updt">Update category</a>
       </div>
-      <div>
         <% if(items.length) { %>
+        <div class="category-items">
           <h3 style="text-align: center;">Items in this category: </h3>
           <div class="cat-item-container">
               <% items.forEach(item => { %>
@@ -39,8 +39,8 @@
                 </div>
               <% }); %>
           </div>
+        </div>
         <% } %>
-      </div>
     </main>
   </body>
 </html>

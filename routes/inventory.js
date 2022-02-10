@@ -26,10 +26,10 @@ router.get("/item/:id/delete", item_controller.item_delete_get);
 router.post("/item/:id/delete", item_controller.item_delete_post);
 
 // GET update item
-router.get("/item/:id/update");
+router.get("/item/:id/update", item_controller.item_update_get);
 
 // POST update item
-router.post("/item/:id/update");
+router.post("/item/:id/update", item_controller.item_update_post);
 
 // GET specific item
 router.get("/item/:id", item_controller.item_detail);

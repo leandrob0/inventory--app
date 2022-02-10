@@ -135,12 +135,12 @@ exports.item_delete_post = (req, res, next) => {
     }
 
     // Path to the item photo
-    let completePath =  `public${item.image}`;
+    let completePath = `public${item.image}`;
 
     // Removes the item photo
     fs.unlink(completePath, function (error) {
-      if(error) return next(error);
-      
+      if (error) return next(error);
+
       // Removes the item and redirects to the items list.
       Item.findByIdAndRemove(req.body.itemid, function deleteItem(err) {
         if (err) return next(err);
@@ -149,3 +149,121 @@ exports.item_delete_post = (req, res, next) => {
     });
   });
 };
+
+exports.item_update_get = (req, res, next) => {
+  async.parallel(
+    {
+      item: (callback) => Item.findById(req.params.id).exec(callback),
+      categories: (callback) => Category.find({}).exec(callback),
+    },
+    (err, results) => {
+      if (err) return next(err);
+      if (results.item == null) {
+        let error = new Error("Item not found");
+        error.status = 404;
+        return next(error);
+      }
+
+      res.render("item_form", {
+        title: "Update item",
+        item: results.item,
+        categories: results.categories,
+        errors: undefined,
+      });
+    }
+  );
+};
+
+exports.item_update_post = [
+  // Convert the categories to an array.
+  (req, res, next) => {
+    if (!(req.body.category instanceof Array)) {
+      if (typeof req.body.category === "undefined") req.body.category = [];
+      else req.body.category = new Array(req.body.category);
+    }
+    next();
+  },
+
+  // Upload image
+  upload.single("image"),
+
+  // Validate and sanitize fields.
+  body("item_name", "Name for the item MUST be specified")
+    .trim()
+    .isLength({ min: 2 })
+    .escape(),
+  body("description")
+    .optional({ checkFalsy: true })
+    .trim()
+    .isLength({ min: 2 })
+    .escape(),
+  body("category.*").escape(),
+  body("price").escape(),
+  body("in-stock").escape(),
+
+  // Process the request after sanitization, validation and image upload.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    let errors = validationResult(req);
+
+    // Create a Item object with escaped and trimmed data.
+    let item = new Item({
+      name: req.body.item_name,
+      description: req.body.description,
+      category: req.body.category,
+      price: req.body.price,
+      number_in_stock: req.body.in_stock,
+      _id: req.params.id, // The item will remain with the same ID.
+    });
+
+    let fileErrors = [];
+
+    if (req.fileValidationError) {
+      fileErrors.push({ msg: "File (format) selected is not valid" });
+    } else if (!req.file) {
+      fileErrors.push({ msg: "Please select an image to upload" });
+    }
+
+    if (!errors.isEmpty() || fileErrors.length > 0) {
+      // There are errors. Render form again with sanitized values/error messages.
+      // This lines puts together all the errors if there are errors.
+      errors = errors.array();
+
+      Category.find({}).exec((err, categories) => {
+        if (err) return next(err);
+
+        res.render("item_form", {
+          title: "Create item",
+          categories: categories,
+          item: item,
+          errors: errors.length > 0 ? errors : fileErrors,
+        });
+      });
+    } else {
+      // Have to the delete the image that is selected rn, to change it for the new one.
+
+      // Removes the photo
+      let completePath;
+      Item.findById(req.params.id).exec((err,itemImg) => {
+        if(err) return next(err);
+        // Path to the item photo
+        completePath = `public${itemImg.image}`;
+
+        fs.unlink(completePath, (error) => {
+          if(error) return next(error);
+        })
+      })
+
+      // Adds the new photo url to the item and saves it.
+      let newPath = req.file.path.split("/");
+      newPath.shift();
+      item.image = `/${newPath.join("/")}`;
+
+      // Updates the item.
+      Item.findByIdAndUpdate(req.params.id, item, {}, (err, item) => {
+        if(err) return next(err);
+        res.redirect(item.url);
+      })
+    }
+  },
+]
