@@ -47,10 +47,10 @@ router.get("/category/create", category_controller.category_create_get);
 router.post("/category/create", category_controller.category_create_post);
 
 // GET delete category
-router.get("/category/:id/delete");
+router.get("/category/:id/delete", category_controller.category_delete_get);
 
 // POST create new category form
-router.post("/category/:id/delete");
+router.post("/category/:id/delete", category_controller.category_delete_post);
 
 // GET update category
 router.get("/category/:id/update");

@@ -1,6 +1,7 @@
 const Category = require("../models/category");
 const Item = require("../models/item");
 const async = require("async");
+const fs = require("fs");
 const { body, validationResult } = require("express-validator");
 const { upload } = require("../public/javascripts/helper");
 
@@ -90,7 +91,7 @@ exports.item_create_post = [
       // There are errors. Render form again with sanitized values/error messages.
       // This lines puts together all the errors if there are errors.
       errors = errors.array();
-      
+
       Category.find({}).exec((err, categories) => {
         if (err) return next(err);
 
@@ -103,42 +104,48 @@ exports.item_create_post = [
       });
     } else {
       // Path formatted to work.
-      let newPath = req.file.path.split('/');
+      let newPath = req.file.path.split("/");
       newPath.shift();
-      item.image = `/${newPath.join('/')}`;
+      item.image = `/${newPath.join("/")}`;
 
       item.save((err) => {
-        if(err) return next(err);
+        if (err) return next(err);
         res.redirect(item.url);
-      })
+      });
     }
   },
 ];
 
 exports.item_delete_get = (req, res, next) => {
   // Gets the item to display its values for confirming the delete operation.
-  Item.findById(req.params.id)
-    .exec((err, item) => {
-      if(err) return next(err);
-      res.render("item_delete", {title: "Delete item", item: item});
-    })
-}
+  Item.findById(req.params.id).exec((err, item) => {
+    if (err) return next(err);
+    res.render("item_delete", { title: "Delete item", item: item });
+  });
+};
 
 exports.item_delete_post = (req, res, next) => {
-  Item.findById(req.params.id)
-    .exec((err, item) => {
-      if(err) return next(err);
-      // If the item is not in the db.
-      if(item === null) {
-        let error = new Error("Item not found");
-        error.status = 404;
-        return next(error);
-      }
+  Item.findById(req.params.id).exec((err, item) => {
+    if (err) return next(err);
+    // If the item is not in the db.
+    if (item === null) {
+      let error = new Error("Item not found");
+      error.status = 404;
+      return next(error);
+    }
 
+    // Path to the item photo
+    let completePath =  `public${item.image}`;
+
+    // Removes the item photo
+    fs.unlink(completePath, function (error) {
+      if(error) return next(error);
+      
       // Removes the item and redirects to the items list.
       Item.findByIdAndRemove(req.body.itemid, function deleteItem(err) {
-        if(err) return next(err);
+        if (err) return next(err);
         res.redirect("/inventory/items");
-      })
-    })
-}
+      });
+    });
+  });
+};

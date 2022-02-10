@@ -1,4 +1,7 @@
 const Category = require("../models/category");
+const Item = require("../models/item");
+const async = require("async");
+const fs = require("fs");
 const { upload } = require("../public/javascripts/helper");
 const { body, validationResult } = require("express-validator");
 
@@ -15,13 +18,23 @@ exports.category_list = (req, res, next) => {
 };
 
 exports.category_detail = (req, res, next) => {
-  Category.findById(req.params.id).exec((err, category) => {
-    if (err) return next(err);
-    res.render("category_detail", {
-      title: "Category detail",
-      category: category,
-    });
-  });
+  async.parallel(
+    {
+      category: (callback) => Category.findById(req.params.id).exec(callback),
+      items: (callback) =>
+        Item.find({ category: req.params.id }, "name image").exec(callback),
+    },
+    (err, results) => {
+      if (err) return next(err);
+      if (results.category == null) res.redirect("/inventory/categories");
+
+      res.render("category_detail", {
+        title: "Category details",
+        category: results.category,
+        items: results.items,
+      });
+    }
+  );
 };
 
 exports.category_create_get = (req, res, next) => {
@@ -80,3 +93,60 @@ exports.category_create_post = [
     }
   },
 ];
+
+exports.category_delete_get = (req, res, next) => {
+  async.parallel(
+    {
+      category: (callback) => Category.findById(req.params.id).exec(callback),
+      items: (callback) =>
+        Item.find({ category: req.params.id }, "name image").exec(callback),
+    },
+    (err, results) => {
+      if (err) return next(err);
+      if (results.category == null) res.redirect("/inventory/categories");
+
+      res.render("category_delete", {
+        title: "Delete category",
+        category: results.category,
+        items: results.items,
+      });
+    }
+  );
+};
+
+exports.category_delete_post = (req, res, next) => {
+  async.parallel(
+    {
+      category: (callback) => Category.findById(req.params.id).exec(callback),
+      items: (callback) =>
+        Item.find({ category: req.params.id }, "name image").exec(callback),
+    },
+    (err, results) => {
+      if (err) return next(err);
+      if (results.items.length > 0) {
+        // Category still has books, so render as a get request.
+        res.render("category_delete", {
+          title: "Delete category",
+          category: results.category,
+          items: results.items,
+        });
+        return;
+      } else {
+
+        // Path to the category photo
+        let completePath =  `public${results.category.image}`;
+
+        // Removes the category photo
+        fs.unlink(completePath, function (err) {
+          if(err) return next(err);
+          
+          // Removes the category and redirects to the categories list.
+          Category.findByIdAndRemove(req.body.categoryid, function deleteCategory(err) {
+            if (err) return next(err);
+            res.redirect("/inventory/categories");
+          });
+        });
+      }
+    }
+  );
+};
