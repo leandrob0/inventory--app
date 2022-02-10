@@ -171,6 +171,53 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  width: 75%;
+}
+
+form fieldset {
+  display: flex;
+  justify-content: space-around;
+
+  border: 1px solid #333;
+  font-size: 1.1em;
+  padding: 10px;
+
+  box-sizing: border-box;
+  width: 100%;
+}
+
+form fieldset div {
+  width: 50%;
+}
+
+form fieldset input{
+  padding: 10px;
+  font-size: .8em;
+}
+
+form fieldset:nth-child(2) {
+  padding: 15px;
+}
+
+div.image{
+  text-align: center;
+  margin: auto;
+}
+
+form fieldset:nth-child(2n+1) input {
+  width: 75%;
+}
+
+#submit_button {
+  margin: 20px;
+  padding: 20px;
+
+  border: 1px solid #333;
+  border-radius: 5px;
+
+  font-size: 1.1em;
+  font-weight: 700;
 }
 
 /*

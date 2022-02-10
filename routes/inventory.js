@@ -41,10 +41,10 @@ router.get("/item/:id", item_controller.item_detail);
 router.get("/categories", category_controller.category_list);
 
 // GET create new category form
-router.get("/category/create");
+router.get("/category/create", category_controller.category_create_get);
 
 // POST create new category form
-router.post("/category/create");
+router.post("/category/create", category_controller.category_create_post);
 
 // GET delete category
 router.get("/category/:id/delete");

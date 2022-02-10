@@ -19,6 +19,7 @@
       <h1><%= title %></h1>
       <form method="POST" action='' enctype="multipart/form-data">
         <fieldset>
+          <div>
             <label for="item_name">Name</label>
             <input 
                 id="item_name" 
@@ -28,6 +29,8 @@
                 required="true" 
                 value=<%= (item === undefined) ? "" : item.name %> 
             >
+          </div>
+          <div>
             <label for="description">Description</label>
             <input 
                 id="description" 
@@ -37,9 +40,11 @@
                 required="true" 
                 value=<%= (item === undefined) ? "" : item.description %> 
             >
+          </div>
         </fieldset>
         <fieldset>
-            <label for="category">Category</label>
+          <div>
+            <label for="category">Category:</label>
             <% categories.forEach(category => { %>
               <input
               id=<%= category._id %> 
@@ -49,17 +54,14 @@
               >
               <label for=<%= category._id %> ><%= category.name %> </label>
             <% }); %>
-            </select>
-            <label for="price">Price</label>
-            <input type="number" step=".01" id="price" name="price" required="true" placeholder="Item price" value=<%= (item === undefined) ? "" : item.price %> >
+          </div>
         </fieldset>
         <fieldset>
-            <label for="image">Image</label>
-            <input 
-                id="image" 
-                name="image" 
-                type="file" 
-            >
+          <div>
+            <label for="price">Price</label>
+            <input type="number" step=".01" id="price" name="price" required="true" placeholder="Item price" value=<%= (item === undefined) ? "" : item.price %> >
+          </div>
+          <div>
             <label for="in_stock">Stock</label>
             <input 
                 id="in_stock"
@@ -69,8 +71,19 @@
                 required="true" 
                 value=<%= (item === undefined) ? "" : item.number_in_stock %> 
             >
+          </div>
         </fieldset>
-        <button type="submit">Create</button>
+        <fieldset>
+          <div class="image">
+            <label for="image">Image</label>
+            <input 
+                id="image" 
+                name="image" 
+                type="file" 
+            >
+          </div>
+        </fieldset>
+        <button type="submit" id="submit_button">Create</button>
       </form>
       <% if(errors !== undefined) { %> 
         <ul>

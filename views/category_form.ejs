@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <nav class="not-homepage-nav">
+      <div class="logo">
+        <a href="/">logo</a>
+      </div>
+      <div class="links">
+        <a href="/inventory/items">Items</a>
+        <a href="/inventory/categories">Categories</a>
+        <a href="/inventory/account">Account</a>
+      </div>
+    </nav>
+    <main class="not-homepage-main">
+      <h1><%= title %></h1>
+      <form method="POST" action='' enctype="multipart/form-data">
+        <fieldset>
+          <div>
+            <label for="category_name">Name</label>
+            <input 
+                id="category_name" 
+                name="category_name" 
+                type="text" 
+                placeholder="Category name" 
+                required="true" 
+                value=<%= (category === undefined) ? "" : category.name %> 
+            >
+          </div>
+          <div>
+            <label for="category_description">Description</label>
+            <input 
+                id="category_description" 
+                name="category_description" 
+                type="text"
+                placeholder="Category short description" 
+                required="true" 
+                value=<%= (category === undefined) ? "" : category.description %> 
+            >
+          </div>
+        </fieldset>
+        <fieldset>
+          <div class="image">
+            <label for="category_image">Image</label>
+            <input 
+                id="category_image" 
+                name="category_image" 
+                type="file" 
+            >
+          </div>
+        </fieldset>
+        <button type="submit" id="submit_button">Create</button>
+      </form>
+      <% if(errors !== undefined) { %> 
+        <ul>
+        <% errors.forEach(err => { %> 
+          <li><%= err.msg %> </li>
+        <% }) %> 
+        </ul>
+      <% } %> 
+    </main>
+  </body>
+</html>
