@@ -4,6 +4,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const cors = require("cors");
 const compression = require("compression");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
@@ -25,6 +26,7 @@ app.set("view engine", "ejs");
 
 app.use(helmet()); // Protects against vulnerabilities.
 app.use(compression()); //Compress all routes.
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
