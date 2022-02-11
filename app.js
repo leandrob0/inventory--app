@@ -26,8 +26,6 @@ app.set("view engine", "ejs");
 
 app.use(cors());
 app.use(helmet());
-// Sets "Cross-Origin-Resource-Policy: cross-origin"
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(
   helmet.contentSecurityPolicy({
     useDefaults: true,
