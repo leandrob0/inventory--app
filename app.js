@@ -4,6 +4,8 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const compression = require("compression");
+const helmet = require("helmet");
 const mongoose = require("mongoose");
 
 // sets the database
@@ -21,6 +23,8 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.use(helmet()); // Protects against vulnerabilities.
+app.use(compression()); //Compress all routes.
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
