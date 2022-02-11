@@ -233,26 +233,26 @@ exports.item_update_post = [
         if (err) return next(err);
 
         res.render("item_form", {
-          title: "Create item",
+          title: "Update item",
           categories: categories,
           item: item,
           errors: errors.length > 0 ? errors : fileErrors,
         });
       });
     } else {
-      // Have to the delete the image that is selected rn, to change it for the new one.
+      // Have to delete the image that is selected rn, to change it for the new one.
 
       // Removes the photo
       let completePath;
-      Item.findById(req.params.id).exec((err,itemImg) => {
-        if(err) return next(err);
+      Item.findById(req.params.id).exec((err, itemImg) => {
+        if (err) return next(err);
         // Path to the item photo
         completePath = `public${itemImg.image}`;
 
         fs.unlink(completePath, (error) => {
-          if(error) return next(error);
-        })
-      })
+          if (error) return next(error);
+        });
+      });
 
       // Adds the new photo url to the item and saves it.
       let newPath = req.file.path.split("/");
@@ -261,9 +261,9 @@ exports.item_update_post = [
 
       // Updates the item.
       Item.findByIdAndUpdate(req.params.id, item, {}, (err, item) => {
-        if(err) return next(err);
+        if (err) return next(err);
         res.redirect(item.url);
-      })
+      });
     }
   },
-]
+];
