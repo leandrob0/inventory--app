@@ -38,6 +38,8 @@
       <% } else { %>
         <h3>Are you sure you want to delete this category?</h3>
         <form method="POST" action="">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
             <input type="hidden" value=<%= category._id %> id="categoryid" name="categoryid" required="true" >
             <button type="submit">Delete</button>
         </form>

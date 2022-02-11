@@ -7,6 +7,8 @@ const Schema = mongoose.Schema;
     Also to keep track of which items and categories are the most sold / most money generated
     If an item/category is deleted. It will also be deleted from here, untracking them.
     The balance total will not change if the item or category is deleted.
+
+    THIS WILL BE IMPLEMENTED AFTER LEARNING ABOUT AUTHENTICATION AND USERS MANAGEMENT.
 */
 
 const AccountSchema = new Schema({

@@ -64,6 +64,12 @@ exports.item_create_post = [
   body("category.*").escape(),
   body("price").escape(),
   body("in-stock").escape(),
+  body("password", "Password must not be empty")
+    .notEmpty()
+    .trim()
+    .equals("adminpassword")
+    .withMessage("The password is not correct")
+    .escape(),
 
   // Process the request after sanitization, validation and image upload.
   (req, res, next) => {
@@ -134,6 +140,12 @@ exports.item_delete_post = (req, res, next) => {
       return next(error);
     }
 
+    if(req.body.password !== "adminpassword") {
+      let error = new Error("Password invalid");
+      error.status = 401;
+      return next(error);
+    }
+
     // Path to the item photo
     let completePath = `public${item.image}`;
 
@@ -200,6 +212,12 @@ exports.item_update_post = [
   body("category.*").escape(),
   body("price").escape(),
   body("in-stock").escape(),
+  body("password", "Password must not be empty")
+    .notEmpty()
+    .trim()
+    .equals("adminpassword")
+    .withMessage("The password is not correct")
+    .escape(),
 
   // Process the request after sanitization, validation and image upload.
   (req, res, next) => {
@@ -267,3 +285,26 @@ exports.item_update_post = [
     }
   },
 ];
+
+exports.item_sell = (req, res, next) => {
+  Item.findById(req.params.id).exec((err, item) => {
+    if (err) return next(err);
+
+    if (item.number_in_stock === 0) {
+      let error = new Error("There are no items to be sold (stock is 0)");
+      error.status = 400;
+      return next(error);
+    } else {
+      let newItem = new Item({
+        ...item,
+        number_in_stock: item.number_in_stock - 1,
+        _id: req.params.id, // The item will remain with the same ID.
+      });
+
+      Item.findByIdAndUpdate(req.params.id, newItem, {}, (err, updatedItem) => {
+        if (err) return next(err);
+        res.redirect(updatedItem.url);
+      });
+    }
+  });
+};

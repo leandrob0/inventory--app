@@ -27,6 +27,8 @@
       </div>
       <h3>Are you sure you want to delete this item?</h3>
       <form method="POST" action="">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password">
           <input type="hidden" value=<%= item._id %> id="itemid" name="itemid" required="true" >
           <button type="submit">Delete</button>
       </form>

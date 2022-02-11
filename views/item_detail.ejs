@@ -21,11 +21,18 @@
       <div class="cat-item-container">
         <div class="cat-item">
           <img src=<%= item.image %> alt="Item image" class="cat-item-image">
-          <h2><%= item.name %> </h2>
-          <p><%= item.description %> </p>
+          <h2>Item name: <%= item.name %> </h2>
+          <p><b>Item description:</b> <%= item.description %> </p>
+          <div>
+            <p><b>Price:</b> $<%= item.price %> </p>
+            <p><b>In stock:</b> <%= item.number_in_stock %> </p>
+          </div>
         </div>
       </div>
       <div class="buttons-del-updt-container">
+        <form method="POST" action="" id="form-sell-item">
+          <button type="submit">Sell one</button>
+        </form>
         <a href="<%= item.url %>/delete" class="buttons-del-updt">Delete item</a>
         <a href="<%= item.url %>/update" class="buttons-del-updt">Update item</a>
       </div>

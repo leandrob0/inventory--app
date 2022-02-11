@@ -34,6 +34,9 @@ router.post("/item/:id/update", item_controller.item_update_post);
 // GET specific item
 router.get("/item/:id", item_controller.item_detail);
 
+// POST sell one item
+router.post("/item/:id", item_controller.item_sell);
+
 //****************************************************
 // CATEGORIES ROUTES
 

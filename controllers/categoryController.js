@@ -52,6 +52,12 @@ exports.category_create_post = [
   // Validate and sanitize inputs.
   body("category_name").trim().isLength({ min: 3, max: 50 }).escape(),
   body("category_description").trim().isLength({ min: 3, max: 100 }).escape(),
+  body("password", "Password must not be empty")
+    .notEmpty()
+    .trim()
+    .equals("adminpassword")
+    .withMessage("The password is not correct")
+    .escape(),
 
   // Process request
   (req, res, next) => {
@@ -123,8 +129,13 @@ exports.category_delete_post = (req, res, next) => {
     },
     (err, results) => {
       if (err) return next(err);
+      if(req.body.password !== "adminpassword") {
+        let error = new Error("Password invalid");
+        error.status = 401;
+        return next(error);
+      }
       if (results.items.length > 0) {
-        // Category still has books, so render as a get request.
+        // Category still has items, so render as a get request.
         res.render("category_delete", {
           title: "Delete category",
           category: results.category,
@@ -177,6 +188,12 @@ exports.category_update_post = [
   // Validate and sanitize inputs.
   body("category_name").trim().isLength({ min: 3, max: 50 }).escape(),
   body("category_description").trim().isLength({ min: 3, max: 100 }).escape(),
+  body("password", "Password must not be empty")
+    .notEmpty()
+    .trim()
+    .equals("adminpassword")
+    .withMessage("The password is not correct")
+    .escape(),
 
   // Process request
   (req, res, next) => {
